@@ -126,10 +126,5 @@ public class TrailingStopLossRule extends AbstractRule {
 
     @Override
     protected void traceIsSatisfied(int index, boolean isSatisfied) {
-        if (log.isTraceEnabled()) {
-            log.trace("{}#isSatisfied({}): {}. Current price: {}, Current stop loss activation: {}",
-                    getClass().getSimpleName(), index, isSatisfied, priceIndicator.getValue(index),
-                    currentStopLossLimitActivation);
-        }
     }
 }

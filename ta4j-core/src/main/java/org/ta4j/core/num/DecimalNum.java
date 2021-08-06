@@ -436,7 +436,6 @@ public final class DecimalNum implements Num {
      */
     @Override
     public Num sqrt(int precision) {
-        log.trace("delegate {}", delegate);
         int comparedToZero = delegate.compareTo(BigDecimal.ZERO);
         switch (comparedToZero) {
         case -1:
@@ -451,7 +450,6 @@ public final class DecimalNum implements Num {
         MathContext precisionContext = new MathContext(precision, RoundingMode.HALF_UP);
         BigDecimal estimate = new BigDecimal(delegate.toString(), precisionContext);
         String string = String.format(Locale.ROOT, "%1.1e", estimate);
-        log.trace("scientific notation {}", string);
         if (string.contains("e")) {
             String[] parts = string.split("e");
             BigDecimal mantissa = new BigDecimal(parts[0]);
@@ -459,13 +457,11 @@ public final class DecimalNum implements Num {
             if (exponent.remainder(new BigDecimal(2)).compareTo(BigDecimal.ZERO) > 0) {
                 exponent = exponent.subtract(BigDecimal.ONE);
                 mantissa = mantissa.multiply(BigDecimal.TEN);
-                log.trace("modified notatation {}e{}", mantissa, exponent);
             }
             BigDecimal estimatedMantissa = mantissa.compareTo(BigDecimal.TEN) < 0 ? new BigDecimal(2)
                     : new BigDecimal(6);
             BigDecimal estimatedExponent = exponent.divide(new BigDecimal(2));
             String estimateString = String.format("%sE%s", estimatedMantissa, estimatedExponent);
-            log.trace("x[0] =~ sqrt({}...*10^{}) =~ {}", mantissa, exponent, estimateString);
             DecimalFormat format = new DecimalFormat();
             format.setParseBigDecimal(true);
             try {
@@ -490,15 +486,6 @@ public final class DecimalNum implements Num {
             newEstimate = sum.divide(two, precisionContext);
             delta = newEstimate.subtract(estimate).abs();
             estimate = newEstimate;
-            if (log.isTraceEnabled()) {
-                estimateString = String.format("%1." + precision + "e", estimate);
-                endIndex = estimateString.length();
-                frontEndIndex = 20 > endIndex ? endIndex : 20;
-                backStartIndex = 20 > endIndex ? 0 : endIndex - 20;
-                log.trace("x[{}] = {}..{}, delta = {}", i, estimateString.substring(0, frontEndIndex),
-                        estimateString.substring(backStartIndex, endIndex), String.format("%1.1e", delta));
-                i++;
-            }
         } while (delta.compareTo(BigDecimal.ZERO) > 0);
         return DecimalNum.valueOf(estimate, precision);
     }
@@ -635,8 +622,6 @@ public final class DecimalNum implements Num {
         if (thisNum.toString().equals(otherNum.toString())) {
             return true;
         }
-        log.debug("{} from {} does not match", thisNum, this);
-        log.debug("{} from {} to precision {}", otherNum, other, precision);
         return false;
     }
 
@@ -653,8 +638,6 @@ public final class DecimalNum implements Num {
         if (!result.isGreaterThan(delta)) {
             return true;
         }
-        log.debug("{} does not match", this);
-        log.debug("{} within offset {}", other, delta);
         return false;
     }
 

@@ -322,8 +322,6 @@ public class BaseBarSeries implements BarSeries {
                 // Cannot return the i-th bar if i < 0
                 throw new IndexOutOfBoundsException(buildOutOfBoundsMessage(this, i));
             }
-            log.trace("Bar series `{}` ({} bars): bar {} already removed, use {}-th instead", name, bars.size(), i,
-                    removedBarsCount);
             if (bars.isEmpty()) {
                 throw new IndexOutOfBoundsException(buildOutOfBoundsMessage(this, removedBarsCount));
             }

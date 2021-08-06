@@ -203,9 +203,6 @@ public class TestUtils {
             Num act = DecimalNum.valueOf(actual.getValue(i).toString());
             Num result = exp.minus(act).abs();
             if (result.isGreaterThan(delta)) {
-                log.debug("{} expected does not match", exp);
-                log.debug("{} actual", act);
-                log.debug("{} offset", delta);
                 String expString = exp.toString();
                 String actString = act.toString();
                 int minLen = Math.min(expString.length(), actString.length());
