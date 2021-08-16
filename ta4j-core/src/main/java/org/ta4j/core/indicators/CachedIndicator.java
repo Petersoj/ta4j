@@ -82,8 +82,7 @@ public abstract class CachedIndicator<T> extends AbstractIndicator<T> {
             // Series is null; the indicator doesn't need cache.
             // (e.g. simple computation of the value)
             // --> Calculating the value
-            T result = calculate(index);
-            return result;
+            return calculate(index);
         }
 
         // Series is not null
