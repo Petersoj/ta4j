@@ -35,14 +35,23 @@ import org.ta4j.core.num.Num;
 public class SMAIndicator extends CachedIndicator<Num> {
 
     private final Indicator<Num> indicator;
-
     private final int barCount;
+    //private final SumIndexIndicator sumIndexIndicator;
 
     public SMAIndicator(Indicator<Num> indicator, int barCount) {
         super(indicator);
         this.indicator = indicator;
         this.barCount = barCount;
+        //sumIndexIndicator = new SumIndexIndicator(indicator, barCount);
     }
+
+    // TODO
+    //@Override
+    //protected Num calculate(int index) {
+    //    Num sum = sumIndexIndicator.getValue(index);
+    //    final int realBarCount = Math.min(barCount, index + 1);
+    //    return sum.dividedBy(numOf(realBarCount));
+    //}
 
     @Override
     protected Num calculate(int index) {
@@ -59,5 +68,4 @@ public class SMAIndicator extends CachedIndicator<Num> {
     public String toString() {
         return getClass().getSimpleName() + " barCount: " + barCount;
     }
-
 }
