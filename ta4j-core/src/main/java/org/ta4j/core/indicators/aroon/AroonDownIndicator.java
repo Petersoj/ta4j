@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2014-2017 Marc de Verdelhan, 2017-2021 Ta4j Organization & respective
+ * Copyright (c) 2017-2022 Ta4j Organization & respective
  * authors (see AUTHORS)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -21,12 +21,13 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.ta4j.core.indicators;
+package org.ta4j.core.indicators.aroon;
 
 import static org.ta4j.core.num.NaN.NaN;
 
 import org.ta4j.core.BarSeries;
 import org.ta4j.core.Indicator;
+import org.ta4j.core.indicators.CachedIndicator;
 import org.ta4j.core.indicators.helpers.LowPriceIndicator;
 import org.ta4j.core.indicators.helpers.LowestValueIndicator;
 import org.ta4j.core.num.Num;
@@ -43,6 +44,7 @@ public class AroonDownIndicator extends CachedIndicator<Num> {
     private final LowestValueIndicator lowestLowPriceIndicator;
     private final Indicator<Num> lowPriceIndicator;
     private final Num hundred;
+    private final Num barCountNum;
 
     /**
      * Constructor.
@@ -56,6 +58,7 @@ public class AroonDownIndicator extends CachedIndicator<Num> {
         this.barCount = barCount;
         this.lowPriceIndicator = lowPriceIndicator;
         this.hundred = numOf(100);
+        this.barCountNum = numOf(barCount);
         // + 1 needed for last possible iteration in loop
         this.lowestLowPriceIndicator = new LowestValueIndicator(lowPriceIndicator, barCount + 1);
     }
@@ -85,7 +88,7 @@ public class AroonDownIndicator extends CachedIndicator<Num> {
             nbBars++;
         }
 
-        return numOf(barCount - nbBars).dividedBy(numOf(barCount)).multipliedBy(hundred);
+        return numOf(barCount - nbBars).dividedBy(barCountNum).multipliedBy(hundred);
     }
 
     @Override

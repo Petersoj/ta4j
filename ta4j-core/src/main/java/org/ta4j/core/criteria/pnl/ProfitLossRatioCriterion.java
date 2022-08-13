@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2014-2017 Marc de Verdelhan, 2017-2021 Ta4j Organization & respective
+ * Copyright (c) 2017-2022 Ta4j Organization & respective
  * authors (see AUTHORS)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -30,8 +30,8 @@ import org.ta4j.core.criteria.AbstractAnalysisCriterion;
 import org.ta4j.core.num.Num;
 
 /**
- * Ratio Profit Loss Criterion = Average gross profit (with commissions) /
- * Average gross loss (with commissions)
+ * Ratio gross profit and loss criterion = Average gross profit (includes
+ * trading costs) / Average gross loss (includes trading costs).
  */
 public class ProfitLossRatioCriterion extends AbstractAnalysisCriterion {
 

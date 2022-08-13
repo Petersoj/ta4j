@@ -10,12 +10,16 @@ Changelog for `ta4j`, roughly following [keepachangelog.com](http://keepachangel
 - **MinusDMIndicator** moved to adx-package
 - `analysis/criterion`-package moved to root
 - `cost`-package moved to `analysis/cost`-package
+- **AroonXXX** indicators moved to aroon package
 
 ### Fixed
 - **LosingPositionsRatioCriterion** correct betterThan
 - **VersusBuyAndHoldCriterionTest** NaN-Error.
 - **Fixed** **`ChaikinOscillatorIndicatorTest`**
 - **DecimalNum#remainder()** adds NaN-check 
+- **Fixed** **ParabolicSarIndicatorTest** fixed openPrice always 0 and highPrice lower than lowPrice
+- **UlcerIndexIndicator** using the max price of current period instead of the highest value of last n bars
+- **DurationBarAggregator** fixed aggregation of bars with gaps
 
 ### Changed
 - **KeltnerChannelMiddleIndicator** changed superclass to AbstractIndicator; add GetBarCount() and toString()
@@ -25,12 +29,18 @@ Changelog for `ta4j`, roughly following [keepachangelog.com](http://keepachangel
 - **Open|High|Low|Close** do not cache price values anymore
 - **DifferenceIndicator(i1,i2)** replaced by the more flexible CombineIndicator.minus(i1,i2)
 - **DoubleNum** replace redundant `toString()` call in `DoubleNum.valueOf(Number i)` with `i.doubleValue()`
+<<<<<<< HEAD
+=======
+- **ZeroCostModel** now extends from `FixedTransactionCostModel`
+>>>>>>> develop
 
 ### Removed/Deprecated
 - **Num** removed Serializable
 - **PriceIndicator** removed
 
 ### Added
+- **NumericIndicator** new class providing a fluent and lightweight api for indicator creation
+- **AroonFacade**, **BollingerBandFacade**, **KeltnerChannelFacade** new classes providing a facade for indicator groups by using lightweight `NumericIndicators`
 - **AbstractEMAIndicator** added getBarCount() to support future enhancements 
 - **ATRIndicator** "uncached" by changing superclass to AbstractIndicator; added constructor to accept TRIndicator and getter for same; added toString(); added getBarCount() to support future enhancements
 - :tada: **Enhancement** added possibility to use CostModels when backtesting with the BacktestExecutor
@@ -48,6 +58,8 @@ Changelog for `ta4j`, roughly following [keepachangelog.com](http://keepachangel
 - :tada: **Enhancement** added **`VarianceCriterion`**
 - :tada: **Enhancement** added **`AverageCriterion`**
 - :tada: **Enhancement** added javadoc for all rules to make clear which rule makes use of a TradingRecord
+- **Enhancement** prevent Object[] allocation for varargs log.trace and log.debug calls by wrapping them in `if` blocks
+- :tada: **Enhancement** added **`FixedTransactionCostModel`**
 
 ## 0.14 (released April 25, 2021)
 
